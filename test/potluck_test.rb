@@ -33,4 +33,20 @@ class PotluckTest <  Minitest::Test
 
     assert_equal 2, @potluck.dishes.length
   end
+
+  def test_it_can_get_dishes_from_a_category
+    summer_pizza = Dish.new('Summer Pizza', :appetizer)
+    roast_pork = Dish.new('Roast Pork', :entre)
+    candy_salad = Dish.new('Candy Salad', :dessert)
+
+    @potluck.add_dish(@couscous_salad)
+    @potluck.add_dish(summer_pizza)
+    @potluck.add_dish(roast_pork)
+    @potluck.add_dish(@cocktail_meatballs)
+    @potluck.add_dish(candy_salad)
+
+    assert_equal [@couscous_salad, summer_pizza], @potluck.get_all_from_category(:appetizer)
+    assert_equal @couscous_salad, @potluck.get_all_from_category(:appetizer).first
+    assert_equal 'Couscous Salad', @potluck.get_all_from_category(:appetizer).first.name
+  end
 end
